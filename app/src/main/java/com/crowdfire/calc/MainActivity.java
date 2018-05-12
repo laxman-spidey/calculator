@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     Button clearButton;
     Button ceButton;
 
+    ButtonLayout buttonLayout = new ButtonLayout();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         clearButton.setOnClickListener((view) -> clearExpression());
         ceButton.setOnClickListener((view) -> clearAtEnd());
         equalsButton.setOnClickListener((view) -> evaluate());
-        View.OnClickListener buttonClickedListener = (view) -> addToExpression(((Button) view).getText().toString());
+        buttonLayout.addOnClickListener((string) -> addToExpression(string));
     }
 
 
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         ceButton = findViewById(R.id.buttonCE);
         expressionView = findViewById(R.id.expressionView);
         expressionView.setSelection(expression.length());
+        buttonLayout.instantiate(this);
     }
 
     private void evaluate() {

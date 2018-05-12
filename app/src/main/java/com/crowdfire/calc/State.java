@@ -10,7 +10,8 @@ public class State {
     public static final String ZERO = "0";
 
     public static class Expression {
-        private static String expression;
+        private static String expression = "0";
+
         public static String reset() {
             expression = ZERO;
             return ZERO;
@@ -31,8 +32,11 @@ public class State {
         public static String get() {
             return expression;
         }
+
         public static String addOp(String op) {
-            return expression.concat(op);
+            if (expression.equals(ZERO))
+                return expression = op;
+            return expression = expression + op;
         }
 
         public static String evaluate() {

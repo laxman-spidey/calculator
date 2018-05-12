@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class State {
     public static String result;
     public static ArrayList<HashMap<String, String>> history;
+    public static boolean evaluated = false;
 
     public static final String ZERO = "0";
 
@@ -40,6 +41,7 @@ public class State {
         }
 
         public static String evaluate() {
+            evaluated = true;
             return "";
         }
     }

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TAG = "calc.TAG";
     public static final String ZERO = "0";
 
     EditText expressionView;
@@ -65,7 +66,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void evaluate() {
-
+        State.Expression.set(expressionView.getText().toString());
+        Log.i(TAG, "final result " + State.Expression.get());
+        Double result = 9.1; //some random value
+        if (result % 1 == 0) {
+            State.Expression.set("" + ((int) Math.floor(result)));
+        } else {
+            State.Expression.set("" + result);
+        }
+        State.evaluated = true;
+        setExpression(State.Expression.get());
     }
 
 }

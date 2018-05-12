@@ -2,16 +2,18 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="4sp">
+    android:elevation="30dp">
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:stretchColumns="*">
+        android:stretchColumns="*"
+        android:elevation="30dp">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:elevation="30dp"
             android:layout_weight="1">
 
             <Button

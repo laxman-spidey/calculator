@@ -14,13 +14,13 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/display"
+            android:id="@+id/expressionView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
             android:gravity="right|bottom"
             android:inputType="none"
-            android:text="calc"
+            android:text="0"
             android:textSize="56sp"
             android:textStyle="normal"
             android:typeface="normal"
@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.6"
+
             />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

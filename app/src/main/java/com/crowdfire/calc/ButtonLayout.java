@@ -43,6 +43,7 @@ public class ButtonLayout {
                 State.Expression.reset();
                 State.evaluated = false;
             }
+            String clickedNumber = ((Button) view).getText().toString();
             listener.onClick(((Button) view).getText().toString());
         };
 

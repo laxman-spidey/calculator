@@ -17,19 +17,27 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="button.integer" parent="Widget.AppCompat.Button.Borderless">
+    <style name="button.integer" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:foreground">?attr/selectableItemBackground</item>
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">@color/numberButton</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:padding">0dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:layout_margin">0dp</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">25sp</item>
     </style>
     <style name="button.operator" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:foreground">?attr/selectableItemBackground</item>
-        <item name="android:background">@android:color/holo_green_light</item>
+        <item name="android:background">@color/operatorButton</item>
         <item name="android:padding">0dp</item>
         <item name="android:layout_margin">0dp</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
-
+    <style name="edittext.expression" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@color/expressionBackround</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/operatorButton</item>
+    </style>
 </resources>

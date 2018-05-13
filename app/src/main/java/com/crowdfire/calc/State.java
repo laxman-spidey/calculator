@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class State {
-    public static String result;
     public static ArrayList<HashMap<String, String>> history;
     public static boolean evaluated = false;
 
@@ -44,6 +43,11 @@ public class State {
             evaluated = true;
             return "";
         }
+    }
+
+    public void createHistoryRecord(String expression, String value)
+    {
+
     }
 
 }

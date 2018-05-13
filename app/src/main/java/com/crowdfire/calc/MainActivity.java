@@ -3,7 +3,6 @@ package com.crowdfire.calc;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clearAtEnd() {
+
         setExpression(State.Expression.clearAtEnd());
     }
 
@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private void evaluate() {
         State.Expression.set(expressionView.getText().toString());
         Log.i(TAG, "final result " + State.Expression.get());
-        Double result = 9.1;
+        Double result;
+        result = ExpressionEvaluator.evaluate(State.Expression.get());
         if (result % 1 == 0) {
             State.Expression.set("" + ((int) Math.floor(result)));
         } else {
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         }
         State.evaluated = true;
         setExpression(State.Expression.get());
+
+
     }
 
 }

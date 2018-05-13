@@ -13,6 +13,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "calc.TAG";
     public static final String ZERO = "0";
+    public static final String INFINITY = "Infinity";
+    public static final String INVALID_INPUT = "Invalid Input";
+
 
     TextView expressionView;
     String expression = "";
@@ -75,20 +78,31 @@ public class MainActivity extends AppCompatActivity {
         double result;
         try {
             result = ExpressionEvaluator.evaluate(State.Expression.get());
-            State.Expression.set(getFormattedResult(result));
+            String formattedResult = getFormattedResult(result);
+            State.Expression.set(formattedResult);
             State.evaluated = true;
             setExpression(State.Expression.get());
+            if (formattedResult.equals(INFINITY)) {
+                State.evaluationFailed = true;
+            }
         } catch (UnsupportedOperationException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            State.evaluated = true;
+            State.evaluationFailed = true;
+            State.Expression.set(e.getMessage());
+            setExpression(e.getMessage());
         } catch (Exception e) {
-            Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show();
+            State.evaluated = true;
+            State.evaluationFailed = true;
+            State.Expression.set(INVALID_INPUT);
+            setExpression(INVALID_INPUT);
         }
 
 
     }
 
-    private String getFormattedResult(double result)
-    {
+    private String getFormattedResult(double result) {
         if (result % 1 == 0) {  // If the result is a Whole number then decimal (.0) part should not be shown
             String resultString = "" + result;
             if (resultString.contains("E")) { // If the number contains E show it with decimal fraction

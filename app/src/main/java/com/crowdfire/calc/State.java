@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class State {
     public static ArrayList<HashMap<String, String>> history;
     public static boolean evaluated = false;
+    public static boolean evaluationFailed = false;
     public static String symbols = ".+-*/^%";
 
     public static final String ZERO = "0";
@@ -35,11 +36,21 @@ public class State {
         }
 
         public static String addOp(String op) {
+
+            if (evaluationFailed) {
+                evaluationFailed = false;
+                return expression = op;
+            }
+
             if (expression.equals(ZERO)) {
                 if (!symbols.contains(op)) { // If the character is number then replace zero with number
                     return expression = op;
                 }
+                if (op.equals("-")) { // Special status for minus. Instead of showing 0-n, it shows -n
+                    return expression = op;
+                }
             }
+
             return expression = expression + op;
         }
 
@@ -49,8 +60,7 @@ public class State {
         }
     }
 
-    public void createHistoryRecord(String expression, String value)
-    {
+    public void createHistoryRecord(String expression, String value) {
 
     }
 

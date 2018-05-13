@@ -39,11 +39,10 @@ public class ButtonLayout {
 
     public void addOnClickListener(ButtonLayout.OnClickListener listener) {
         View.OnClickListener numberClickedListener = (view) -> {
-            if (State.evaluated) {
+            if (State.evaluated) { // If the value in the expression is just evaluated
                 State.Expression.reset();
                 State.evaluated = false;
             }
-            String clickedNumber = ((Button) view).getText().toString();
             listener.onClick(((Button) view).getText().toString());
         };
 

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "calc.TAG";
     public static final String ZERO = "0";
 
-    EditText expressionView;
+    TextView expressionView;
     String expression = "";
 
     Button equalsButton;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setExpression(String expression) {
         expressionView.setText(expression);
-        expressionView.setSelection(expression.length());
+//        expressionView.setSelection(expression.length());
     }
 
     private void initiateViews() {
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         clearButton = findViewById(R.id.buttonCL);
         ceButton = findViewById(R.id.buttonCE);
         expressionView = findViewById(R.id.expressionView);
-        expressionView.setSelection(1);
+//        expressionView.setSelection(1);
         buttonLayout.instantiate(this);
     }
 
@@ -74,29 +75,29 @@ public class MainActivity extends AppCompatActivity {
         double result;
         try {
             result = ExpressionEvaluator.evaluate(State.Expression.get());
-            if (result % 1 == 0) {
-                String resultString = "" + result;
-                Log.i(TAG, resultString);
-                Log.i(TAG, "" + resultString.indexOf('.'));
-                Log.i(TAG, resultString.substring(0, resultString.indexOf('.')));
-                if (resultString.contains("E")) {
-                    State.Expression.set("" + result);
-                } else {
-                    State.Expression.set(resultString.substring(0, resultString.indexOf('.')));
-                }
-//                State.Expression.set(""+Math.floor(result));
-            } else {
-                State.Expression.set("" + result);
-            }
+            State.Expression.set(getFormattedResult(result));
             State.evaluated = true;
             setExpression(State.Expression.get());
         } catch (UnsupportedOperationException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Invalid expression", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
+    private String getFormattedResult(double result)
+    {
+        if (result % 1 == 0) {  // If the result is a Whole number then decimal (.0) part should not be shown
+            String resultString = "" + result;
+            if (resultString.contains("E")) { // If the number contains E show it with decimal fraction
+                return "" + result;
+            } else { // Else remove decimal part
+                return resultString.substring(0, resultString.indexOf('.'));
+            }
+        } else {
+            return "" + result;
+        }
+    }
 }

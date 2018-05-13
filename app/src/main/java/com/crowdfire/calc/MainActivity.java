@@ -3,6 +3,7 @@ package com.crowdfire.calc;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         ceButton.setOnClickListener((view) -> clearAtEnd());
         equalsButton.setOnClickListener((view) -> evaluate());
         buttonLayout.addOnClickListener((string) -> addToExpression(string));
+        expressionView.setOnFocusChangeListener((view, hasFocus) -> {
+        });
     }
 
 
@@ -68,11 +71,20 @@ public class MainActivity extends AppCompatActivity {
     private void evaluate() {
         State.Expression.set(expressionView.getText().toString());
         Log.i(TAG, "final result " + State.Expression.get());
-        Double result;
+        double result;
         try {
             result = ExpressionEvaluator.evaluate(State.Expression.get());
             if (result % 1 == 0) {
-                State.Expression.set("" + ((int) Math.floor(result)));
+                String resultString = "" + result;
+                Log.i(TAG, resultString);
+                Log.i(TAG, "" + resultString.indexOf('.'));
+                Log.i(TAG, resultString.substring(0, resultString.indexOf('.')));
+                if (resultString.contains("E")) {
+                    State.Expression.set("" + result);
+                } else {
+                    State.Expression.set(resultString.substring(0, resultString.indexOf('.')));
+                }
+//                State.Expression.set(""+Math.floor(result));
             } else {
                 State.Expression.set("" + result);
             }

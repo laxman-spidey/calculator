@@ -24,14 +24,25 @@
             android:textSize="56sp"
             android:textStyle="normal"
             android:typeface="normal"
-            android:layout_margin="0dp"/>
+            android:layout_margin="0dp"
+            style="@style/edittext.expression"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:elevation="30sp"
+            >
+
+
         <include
             android:id="@+id/buttons_layout"
             layout="@layout/buttons_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.6"
 
             />
+        </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

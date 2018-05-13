@@ -61,14 +61,14 @@ public class MainActivity extends AppCompatActivity {
         clearButton = findViewById(R.id.buttonCL);
         ceButton = findViewById(R.id.buttonCE);
         expressionView = findViewById(R.id.expressionView);
-        expressionView.setSelection(expression.length());
+        expressionView.setSelection(1);
         buttonLayout.instantiate(this);
     }
 
     private void evaluate() {
         State.Expression.set(expressionView.getText().toString());
         Log.i(TAG, "final result " + State.Expression.get());
-        Double result = 9.1; //some random value
+        Double result = 9.1;
         if (result % 1 == 0) {
             State.Expression.set("" + ((int) Math.floor(result)));
         } else {

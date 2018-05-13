@@ -69,14 +69,20 @@ public class MainActivity extends AppCompatActivity {
         State.Expression.set(expressionView.getText().toString());
         Log.i(TAG, "final result " + State.Expression.get());
         Double result;
-        result = ExpressionEvaluator.evaluate(State.Expression.get());
-        if (result % 1 == 0) {
-            State.Expression.set("" + ((int) Math.floor(result)));
-        } else {
-            State.Expression.set("" + result);
+        try {
+            result = ExpressionEvaluator.evaluate(State.Expression.get());
+            if (result % 1 == 0) {
+                State.Expression.set("" + ((int) Math.floor(result)));
+            } else {
+                State.Expression.set("" + result);
+            }
+            State.evaluated = true;
+            setExpression(State.Expression.get());
+        } catch (UnsupportedOperationException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Invalid expression", Toast.LENGTH_SHORT).show();
         }
-        State.evaluated = true;
-        setExpression(State.Expression.get());
 
 
     }

@@ -5,6 +5,10 @@ import android.util.Log;
 import java.util.Stack;
 
 public class ExpressionEvaluator {
+
+    private static final String supportedOperators = "+-*/%^";
+
+
     public static double evaluate(String expression) {
         char[] tokens = expression.toCharArray();
         // Stack for numbers: 'values'
@@ -14,6 +18,7 @@ public class ExpressionEvaluator {
         Stack<Character> ops = new Stack();
 
         for (int i = 0; i < tokens.length; i++) {
+
             // Current token is a whitespace, skip it
             if (tokens[i] == ' ')
                 continue;
@@ -28,8 +33,51 @@ public class ExpressionEvaluator {
                 i--;
                 values.push(Double.parseDouble(sbuf.toString()));
             }
+            // Current token is an operator.
+            else if (isOperator(tokens[i])) {
+                while (!ops.empty())
+                    values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+
+                // Push current token to 'ops'.
+                ops.push(tokens[i]);
+            }
         }
-        Log.i("TAG", values.toString());
-        return 0.0;
+        // Entire expression has been parsed at this point, apply remaining
+        // ops to remaining values
+        while (!ops.empty())
+            values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+        // Top of 'values' contains result, return it
+        return values.pop();
+    }
+
+    private static boolean isOperator(char token) {
+        if (supportedOperators.indexOf(token) == -1)
+            return false;
+        return true;
+    }
+    // A utility method to apply an operator 'op' on operands 'a'
+    // and 'b'. Return the result.
+    public static double applyOp(char op, double b, double a) {
+        switch (op) {
+            case '+':
+                return a + b;
+            case '-':
+                return a - b;
+            case '*':
+                return a * b;
+            case '/':
+                if (b == 0)
+                    throw new
+                            UnsupportedOperationException("Cannot divide by zero");
+                return a / b;
+            case '^':
+                return Math.pow(a, b);
+            case '%':
+                if (b == 0)
+                    throw new
+                            UnsupportedOperationException("Cannot modulus by zero");
+                return a % b;
+        }
+        return 0;
     }
 }
